@@ -1,0 +1,84 @@
+/* ==========================
+   QToolBar 样式
+   ========================== */
+QToolBar {
+    padding: 0px;  /* 工具栏内边距设置为 0，去掉默认空白 */
+}
+
+/* ==========================
+   QTabWidget 面板样式
+   ========================== */
+QTabWidget:pane {
+    border-radius: 0px;  /* 面板四角圆角为 0，保持矩形 */
+    margin: 0px;         /* 外边距为 0 */
+    padding: 0px;        /* 内边距为 0 */
+    
+    /* 背景色渐变：从底部 #efefef -> 中间 #e5e5e5 -> 顶部 #fdfdfd */
+    background-color: qlineargradient(
+        x1: 0, y1: 1, 
+        x2: 0, y2: 0, 
+        stop: 0 #efefef, 
+        stop: 0.5 #e5e5e5, 
+        stop: 1.0 #fdfdfd
+    );
+
+    border-bottom: 1px solid rgba(0,0,0,20%); /* 底部边框，半透明黑色 */
+    border-top: 1px solid rgba(0,0,0,20%);    /* 顶部边框，半透明黑色 */
+    top: -1;  /* 面板偏移，微调显示位置 */
+}
+
+/* ==========================
+   QTabWidget 整体样式
+   ========================== */
+QTabWidget {
+    font: 10pt "微软雅黑";  /* 标签字体大小和字体 */
+    background-color: #00001;  /* 背景颜色（此值可能是笔误，应该是类似 #000000） */
+}
+
+/* ==========================
+   QTabWidget 标签栏样式
+   ========================== */
+QTabWidget::tab-bar {
+    left: 5px;  /* 标签栏左侧内边距 */
+}
+
+/* ==========================
+   QTabBar 标签样式
+   ========================== */
+QTabBar::tab {
+    padding-top: 4px;       /* 上内边距 */
+    padding-bottom: 4px;    /* 下内边距 */
+    padding-left: 12px;     /* 左内边距 */
+    padding-right: 12px;    /* 右内边距 */
+    
+    border-top-left-radius: 3px;   /* 左上角圆角 */
+    border-top-right-radius: 3px;  /* 右上角圆角 */
+    
+    margin-right: 5px;      /* 标签之间的间距 */
+    color: #2A2A2A;         /* 标签字体颜色 */
+    background-color: #00001; /* 标签背景色（此值可能是笔误） */
+}
+
+/* ==========================
+   鼠标悬停标签样式
+   ========================== */
+QTabBar::tab:hover {
+    background: rgba(255, 119, 0, 20%); /* 悬停时半透明橙色背景 */
+}
+
+/* ==========================
+   选中标签样式
+   ========================== */
+QTabBar::tab:selected {
+    background: qlineargradient(
+        x1: 0, y1: 1, 
+        x2: 0, y2: 0, 
+        stop: 0 #fdfdfd, 
+        stop: 1.0 #efefef
+    ); /* 渐变背景 */
+
+    color: #2A2A2A;  /* 选中标签字体颜色 */
+    
+    border: 1px solid rgba(0,0,0,20%);  /* 标签边框 */
+    border-bottom-color: #f9f9f9;       /* 底部边框颜色覆盖 */
+}

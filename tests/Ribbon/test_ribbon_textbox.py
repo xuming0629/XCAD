@@ -7,7 +7,7 @@
 @Version :   v1.0
 @Contact :   920972751@qq.com
 @License :   Copyright (c) 2021-2025 XuMing. All Rights Reserved.
-@Desc    :   
+@Desc    :   自定义 Ribbon 样式文本框测试l
 '''
 
 
@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QToolBar, QLabel, QWidget
 from PyQt5.QtCore import Qt
 
 # 导入 RibbonTextbox 模块l
-from src.Ribbon.RibbonTextbox import RibbonTextbox
+from src.Ribbon.RibbonTextbox import RibbonTextblox
 
 def test_ribbon_textbox():
     def on_text_change(text):

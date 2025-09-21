@@ -1,0 +1,11 @@
+/*  
+ * 作用范围：QWidget 及其所有子类控件  
+ * QWidget 是 Qt 所有可视控件的基类，比如 QMainWindow、QDialog、QPushButton 等都继承自 QWidget  
+ * 所以这里定义的样式会影响整个窗口以及其子控件的背景颜色  
+ */
+QWidget {
+    /* 设置背景颜色为十六进制颜色值 #dfe9f5  
+       - #dfe9f5 是一种淡蓝灰色 (RGB: 223, 233, 245)  
+       - 这个颜色适合作为应用的整体背景色，视觉上比较柔和 */
+    background-color: #dfe9f5;
+}

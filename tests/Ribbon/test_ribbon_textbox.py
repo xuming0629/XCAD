@@ -10,13 +10,19 @@
 @Desc    :   自定义 Ribbon 样式文本框测试l
 '''
 
-
+import os
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QToolBar, QLabel, QWidget, QHBoxLayout
 from PyQt5.QtCore import Qt
 
 # 导入 RibbonTextbox 模块l
 from src.Ribbon.RibbonTextbox import RibbonTextblox
+
+# 获取项目根目录（XCAD），确保 src 和 tests 同级
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# ribbon.css 文件路径
+CSS_PATH = os.path.join(ROOT_DIR, "src", "stylesheets", "ribbon.css")
 
 def test_ribbon_textbox():
     def on_text_change(text):

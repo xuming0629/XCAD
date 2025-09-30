@@ -1,21 +1,39 @@
+/* ================= QToolButton 样式 ================= */
+
+/* 默认状态 */
 QToolButton {
-    text-align: left;
-    border: 1px solid transparent;
-    margin:2px;
+    text-align: left;                     /* 文字左对齐 */
+    border: 1px solid transparent;        /* 默认透明边框 */
+    margin: 2px;                           /* 四周外边距 2px */
+    background-color: transparent;        /* 背景透明 */
 }
 
+/* 鼠标悬停状态 */
 QToolButton:hover {
-    border: 1px solid rgba(120,160,255,60%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,30%),stop: 0.5 rgba(225,235,245,60%), stop: 1 rgba(225,235,245,30%));
+    border: 1px solid rgba(120,160,255,60%); /* 半透明蓝色边框 */
+    background-color: QLinearGradient(       /* 背景渐变 */
+        spread:pad, 
+        x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0 rgba(150,180,200,30%),      /* 底部颜色 */
+        stop: 0.5 rgba(225,235,245,60%),    /* 中间颜色 */
+        stop: 1 rgba(225,235,245,30%)       /* 顶部颜色 */
+    );
 }
 
-
-QToolButton:pressed{
-    border: 1px solid rgba(120,160,255,80%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,50%),stop: 0.5 rgba(225,235,245,80%), stop: 1 rgba(225,235,245,50%));
+/* 鼠标按下状态 */
+QToolButton:pressed {
+    border: 1px solid rgba(120,160,255,80%); /* 边框更深蓝色 */
+    background-color: QLinearGradient(       /* 渐变背景更深 */
+        spread:pad, 
+        x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0 rgba(150,180,200,50%),      /* 底部颜色更深 */
+        stop: 0.5 rgba(225,235,245,80%),    /* 中间颜色更亮 */
+        stop: 1 rgba(225,235,245,50%)       /* 顶部颜色 */
+    );
 }
 
-QToolButton:checked{
-    border: 1px solid rgba(120,160,255,40%);
-    background-color: rgba(0,0,0,10%)
+/* 选中状态（checkable 按钮有效） */
+QToolButton:checked {
+    border: 1px solid rgba(120,160,255,40%); /* 边框浅蓝色 */
+    background-color: rgba(0,0,0,10%);       /* 浅灰背景 */
 }

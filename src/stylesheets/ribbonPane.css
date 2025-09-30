@@ -3,7 +3,8 @@
    ========================== */
 QWidget {
     border: 0px solid black;      /* 边框宽度为 0，实际无边框 */
-    margin: 0px;                   /* 外边距为 0，紧贴父控件 */
+    margin: 0px;                   /* 外边距为 0，控件紧贴父控件 */
     padding: 0px;                  /* 内边距为 0，内容紧贴控件边缘 */
-    font: 9pt "微软雅黑";           /* 字体大小 9pt，字体为微软雅黑 */
+    font: 9pt "微软雅黑";           /* 默认字体为微软雅黑，大小为 9pt */
+    background-color: transparent; /* 背景透明（可根据需要修改） */
 }

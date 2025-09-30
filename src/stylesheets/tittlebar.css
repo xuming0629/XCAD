@@ -1,48 +1,59 @@
+/* ================= QToolBar 样式 ================= */
 QToolBar {
-    padding: 0px;
-
+    padding: 0px;  /* 工具栏内边距为 0 */
 }
 
+/* ================= QTabWidget 样式 ================= */
 QTabWidget:pane {
-    border-radius: 0px;
-    margin:0px;
-    padding: 0px;
-    background-color: qlineargradient(x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 #efefef, stop: 0.5 #e5e5e5, stop: 1.0 #fdfdfd);
-    border-bottom: 1px solid rgba(0,0,0,20%);
-    border-top: 1px solid rgba(0,0,0,20%);
-    top: -1;
+    border-radius: 0px; /* 面板无圆角 */
+    margin: 0px;        /* 外边距为 0 */
+    padding: 0px;       /* 内边距为 0 */
+    background-color: qlineargradient(
+        x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0 #efefef,   /* 底部颜色 */
+        stop: 0.5 #e5e5e5, /* 中间颜色 */
+        stop: 1.0 #fdfdfd  /* 顶部颜色 */
+    );
+    border-bottom: 1px solid rgba(0,0,0,20%); /* 底部细线 */
+    border-top: 1px solid rgba(0,0,0,20%);    /* 顶部细线 */
+    top: -1; /* 控制面板位置微调 */
 }
-QTabWidget{
-        font: 10pt "微软雅黑";
-        background-color:#00001
 
+QTabWidget {
+    font: 10pt "微软雅黑"; /* 全局字体 微软雅黑 10pt */
+    background-color: #000000; /* 背景颜色修正为有效的黑色 */
 }
 
+/* ================= QTabWidget Tab 样式 ================= */
 QTabWidget::tab-bar {
-    left: 5px;
+    left: 5px; /* Tab 栏左边距 5px */
 }
 
 QTabBar::tab {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 12px;
-    padding-right: 12px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    margin-right:5px;
-    color:#2A2A2A;
-    background-color:#00001
-
- }
-
-QTabBar::tab:hover {
-    background: rgba(255, 119, 0, 20%);
+    padding-top: 4px;     /* Tab 上内边距 */
+    padding-bottom: 4px;  /* Tab 下内边距 */
+    padding-left: 12px;   /* Tab 左内边距 */
+    padding-right: 12px;  /* Tab 右内边距 */
+    border-top-left-radius: 3px;  /* 左上圆角 */
+    border-top-right-radius: 3px; /* 右上圆角 */
+    margin-right: 5px;    /* Tab 右外边距 */
+    color: #2A2A2A;       /* Tab 文字颜色 */
+    background-color: #000000; /* Tab 背景颜色修正为有效的黑色 */
 }
 
-QTabBar::tab:selected{
-    background: qlineargradient(x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 #fdfdfd, stop: 1.0 #efefef);
-    color: #2A2A2A;
+/* 鼠标悬停 Tab 样式 */
+QTabBar::tab:hover {
+    background: rgba(255, 119, 0, 20%); /* 半透明橙色背景 */
+}
 
-    border: 1px solid rgba(0,0,0,20%);
-    border-bottom-color: #f9f9f9;
+/* 选中状态的 Tab 样式 */
+QTabBar::tab:selected {
+    background: qlineargradient(
+        x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0 #fdfdfd, /* 底部颜色 */
+        stop: 1.0 #efefef /* 顶部颜色 */
+    );
+    color: #2A2A2A; /* 文字颜色 */
+    border: 1px solid rgba(0,0,0,20%); /* 边框颜色 */
+    border-bottom-color: #f9f9f9; /* 底部边框颜色，保证选中状态和面板分开 */
 }

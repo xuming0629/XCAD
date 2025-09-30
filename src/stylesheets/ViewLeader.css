@@ -1,7 +1,7 @@
+/* QWidget 的全局样式 */
 QWidget {
-    border: 0px solid black;
-    margin: 0px;
-    padding: 0px;
-    font: 9pt "微软雅黑";
-    
+    border: 0px solid black;   /* 边框宽度为 0，相当于没有边框 */
+    margin: 0px;               /* 外边距为 0 */
+    padding: 0px;              /* 内边距为 0 */
+    font: 9pt "微软雅黑";       /* 全局字体设置为 微软雅黑，字号 9pt */
 }

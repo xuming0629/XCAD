@@ -1,25 +1,39 @@
+/* 默认状态下的 QPushButton 样式 */
 QPushButton {
-    text-align: left;
-    border: 0px solid;
-    padding: 0px;
-    margin-left:2px;
-    margin-right:2px;
-    margin-bottom:2px;
-    margin-top:2px;
-    background-color: transparent;
+    text-align: left;                /* 文本左对齐 */
+    border: 0px solid;               /* 无边框 */
+    padding: 0px;                    /* 内边距为 0 */
+    margin-left:2px;                 /* 左边距 2px */
+    margin-right:2px;                /* 右边距 2px */
+    margin-bottom:2px;               /* 下边距 2px */
+    margin-top:2px;                  /* 上边距 2px */
+    background-color: transparent;   /* 背景透明 */
 }
 
+/* 鼠标悬停时的样式 */
 QPushButton:hover {
-    border: 1px solid rgba(120,160,255,60%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,30%),stop: 0.5 rgba(225,235,245,60%), stop: 1 rgba(225,235,245,30%));
+    border: 1px solid rgba(120,160,255,60%); /* 浅蓝色半透明边框 */
+    background-color: QLinearGradient(       /* 背景使用线性渐变 */
+        spread:pad, x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0   rgba(150,180,200,30%),     /* 底部颜色，透明度 30% */
+        stop: 0.5 rgba(225,235,245,60%),     /* 中间颜色，透明度 60% */
+        stop: 1   rgba(225,235,245,30%)      /* 顶部颜色，透明度 30% */
+    );
 }
 
-QPushButton:pressed{
-    border: 1px solid rgba(120,160,255,80%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,50%),stop: 0.5 rgba(225,235,245,80%), stop: 1 rgba(225,235,245,50%));
+/* 鼠标按下时的样式 */
+QPushButton:pressed {
+    border: 1px solid rgba(120,160,255,80%); /* 深蓝色边框，透明度更高 */
+    background-color: QLinearGradient(       /* 渐变色比 hover 状态更深 */
+        spread:pad, x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0   rgba(150,180,200,50%),     /* 底部颜色，透明度 50% */
+        stop: 0.5 rgba(225,235,245,80%),     /* 中间颜色，透明度 80% */
+        stop: 1   rgba(225,235,245,50%)      /* 顶部颜色，透明度 50% */
+    );
 }
 
-QPushButton:checked{
-    border: 1px solid rgba(120,160,255,40%);
-    background-color: rgba(0,0,0,10%)
+/* 按钮被选中（checkable=true 并处于 checked 状态）时的样式 */
+QPushButton:checked {
+    border: 1px solid rgba(120,160,255,40%); /* 浅蓝色边框，透明度较低 */
+    background-color: rgba(0,0,0,10%);       /* 浅灰色背景，透明度 10% */
 }

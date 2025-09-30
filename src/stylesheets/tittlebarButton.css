@@ -1,24 +1,39 @@
+/* 默认状态 */
 QToolButton {
-    text-align: left;
-    border: 1px ;
-    padding: 0px;
-    margin-left:2px;
-    margin-right:2px;
-    margin-bottom:2px;
-    margin-top:2px;
+    text-align: left;                    /* 按钮文字左对齐 */
+    border: 1px solid transparent;       /* 默认透明边框（避免闪烁） */
+    padding: 0px;                        /* 内边距为 0 */
+    margin-left: 2px;                    /* 左外边距 2px */
+    margin-right: 2px;                   /* 右外边距 2px */
+    margin-bottom: 2px;                  /* 下外边距 2px */
+    margin-top: 2px;                     /* 上外边距 2px */
+    background-color: transparent;       /* 默认背景透明 */
 }
 
+/* 鼠标悬停 */
 QToolButton:hover {
-    border: 1px solid rgba(120,160,255,60%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,30%),stop: 0.5 rgba(225,235,245,60%), stop: 1 rgba(225,235,245,30%));
+    border: 1px solid rgba(120,160,255,60%); /* 半透明浅蓝边框 */
+    background-color: QLinearGradient(       /* 渐变背景：浅蓝灰 → 浅灰白 */
+        spread:pad, x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0   rgba(150,180,200,30%),
+        stop: 0.5 rgba(225,235,245,60%),
+        stop: 1   rgba(225,235,245,30%)
+    );
 }
 
-QToolButton:pressed{
-    border: 1px solid rgba(120,160,255,80%);
-    background-color: QLinearGradient(spread:pad, x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 rgba(150,180,200,50%),stop: 0.5 rgba(225,235,245,80%), stop: 1 rgba(225,235,245,50%));
+/* 鼠标按下 */
+QToolButton:pressed {
+    border: 1px solid rgba(120,160,255,80%); /* 更深的蓝色边框 */
+    background-color: QLinearGradient(       /* 渐变比 hover 更深 */
+        spread:pad, x1: 0, y1: 1, x2: 0, y2: 0,
+        stop: 0   rgba(150,180,200,50%),
+        stop: 0.5 rgba(225,235,245,80%),
+        stop: 1   rgba(225,235,245,50%)
+    );
 }
 
-QToolButton:checked{
-    border: 1px solid rgba(120,160,255,40%);
-    background-color: rgba(0,0,0,10%)
+/* 选中状态（checkable 按钮有效） */
+QToolButton:checked {
+    border: 1px solid rgba(120,160,255,40%); /* 边框浅蓝色，透明度更低 */
+    background-color: rgba(0,0,0,10%);       /* 浅灰背景 */
 }

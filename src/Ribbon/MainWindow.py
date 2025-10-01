@@ -16,10 +16,16 @@ from PyQt5.QtGui import QKeySequence as QKSec
 
 from src.Ribbon.Icons import get_icon       # 获取图标的工具函数
 from src.Ribbon.RibbonButton import RibbonButton  # Ribbon 风格按钮
+from src.Ribbon.RibbonTextbox import RibbonTextbox  # Ribbon 风格文本框
+from src.Ribbon.RibbonWidget import RibbonWidget  # Ribbon 风格控件
+
+
+
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
-        QMainWindow.__init__(self, None)
+        super(MainWindow, self).__init__()
         self.resize(1280, 800)                        # 设置主窗口大小
         self.setWindowTitle("Main Window")            # 设置标题
         self.setDockNestingEnabled(True)              # 允许嵌套 Dock
@@ -44,44 +50,40 @@ class MainWindow(QMainWindow):
         # 信息相关
         self._about_action = self.add_action("About", "about", "About QupyRibbon", True, self.on_about)
         self._license_action = self.add_action("License", "license", "Licence for this software", True, self.on_license)
+        
+        # -------------      textboxes       -----------------
+
+        self._text_box1 = RibbonTextbox("Text 1", self.on_text_box1_changed, 80)
+        self._text_box2 = RibbonTextbox("Text 2", self.on_text_box1_changed, 80)
+        self._text_box3 = RibbonTextbox("Text 3", self.on_text_box1_changed, 80)
+
+        # Ribbon
+
+        self._ribbon = RibbonWidget(self)
+        self.addToolBar(self._ribbon)
+        self.init_ribbon()
+        
+        
 
     def add_action(self, caption, icon_name, status_tip, icon_visible, connection, shortcut=None):
-        """
-        创建并注册 QAction
-        :param caption: 动作标题
-        :param icon_name: 图标名称
-        :param status_tip: 状态栏提示
-        :param icon_visible: 菜单中是否显示图标
-        :param connection: 动作触发回调函数
-        :param shortcut: 快捷键（可选）
-        """
         action = QAction(get_icon(icon_name), caption, self)
         action.setStatusTip(status_tip)
         action.triggered.connect(connection)
         action.setIconVisibleInMenu(icon_visible)
         if shortcut is not None:
             action.setShortcuts(shortcut)
-        self.addAction(action)    # 注册到主窗口
+        self.addAction(action)
         return action
 
     def init_ribbon(self):
-        """
-        初始化 Ribbon 界面，添加 Tab、Pane、Button 和控件
-        """
-        # Home 标签
         home_tab = self._ribbon.add_ribbon_tab("Home")
-
-        # 文件 Pane
         file_pane = home_tab.add_ribbon_pane("File")
         file_pane.add_ribbon_widget(RibbonButton(self, self._open_action, True))
         file_pane.add_ribbon_widget(RibbonButton(self, self._save_action, True))
 
-        # 编辑 Pane
         edit_panel = home_tab.add_ribbon_pane("Edit")
         edit_panel.add_ribbon_widget(RibbonButton(self, self._copy_action, True))
         edit_panel.add_ribbon_widget(RibbonButton(self, self._paste_action, True))
-
-        # 在 Pane 中添加网格布局（带文本框）
         grid = edit_panel.add_grid_widget(200)
         grid.addWidget(QLabel("Text box 1"), 1, 1)
         grid.addWidget(QLabel("Text box 2"), 2, 1)
@@ -90,12 +92,10 @@ class MainWindow(QMainWindow):
         grid.addWidget(self._text_box2, 2, 2)
         grid.addWidget(self._text_box3, 3, 2)
 
-        # 视图 Pane
         view_panel = home_tab.add_ribbon_pane("View")
         view_panel.add_ribbon_widget(RibbonButton(self, self._zoom_action, True))
-        home_tab.add_spacer()  # 填充空间
+        home_tab.add_spacer()
 
-        # About 标签
         about_tab = self._ribbon.add_ribbon_tab("About")
         info_panel = about_tab.add_ribbon_pane("Info")
         info_panel.add_ribbon_widget(RibbonButton(self, self._about_action, True))

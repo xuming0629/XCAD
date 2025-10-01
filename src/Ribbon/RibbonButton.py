@@ -13,7 +13,7 @@
 
 from PyQt5 import Qt
 from PyQt5.QtCore import QSize
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QToolButton
 
 from src.Ribbon import gui_scale  # 用于获取界面缩放比例
 from src.Ribbon.StyleSheets import get_stylesheet  # 获取 CSS 样式表
@@ -30,7 +30,7 @@ class RibbonButton(QToolButton):
         :param action: 关联的 QAction，用于按钮事件、图标、文本
         :param is_large: 是否为大按钮
         """
-        QPushButton.__init__(self, owner)  # 初始化 QToolButton 父类
+        super().__init__(owner)  # ✅ 正确调用父类 QToolButton 构造函数
         # sc = 1
         sc = gui_scale()  # 获取界面缩放比例
 

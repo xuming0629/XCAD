@@ -6,11 +6,9 @@
 # @Author        :   XuMing
 # @Version       :   1.0
 # @Email         :   920972751@qq.com
-# @Description   :   RibbonTab 类
+# @Description   :   RibbonTab 类，用于 Ribbon 工具栏的选项卡容器
 # @Copyright     :   XuMing. All Rights Reserved.
 # ****************************************************
-
-
 
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
@@ -32,10 +30,10 @@ class RibbonTab(QWidget):
             parent : 父级 QWidget（通常是 RibbonBar）
             name   : 当前选项卡的名称（可用于标识）
         """
-        super(RibbonTab, self).__init__(parent)
+        super().__init__(parent)
 
-        # RibbonTab 使用水平布局，存放 RibbonPane
-        layout = QHBoxLayout()
+        # 创建水平布局，存放 RibbonPane
+        layout = QHBoxLayout(self)
         self.setLayout(layout)
 
         # 去掉边距和间隔，保证 RibbonPane 紧贴排列
@@ -43,8 +41,13 @@ class RibbonTab(QWidget):
         layout.setSpacing(0)
         layout.setAlignment(Qt.AlignLeft)
 
-        # 保存名称
+        # 保存选项卡名称
         self._name = name
+
+    @property
+    def name(self):
+        """获取选项卡名称"""
+        return self._name
 
     def add_ribbon_pane(self, name: str) -> RibbonPane:
         """
@@ -70,7 +73,7 @@ class RibbonTab(QWidget):
         # 设置最后一个项（spacer）可伸缩
         self.layout().setStretch(self.layout().count() - 1, 1)
 
-    def set_ribbon_pane(self, ribbon_pane: RibbonPane, stretch: int = 0):
+    def set_ribbon_pane_stretch(self, ribbon_pane: RibbonPane, stretch: int = 0):
         """
         设置某个 RibbonPane 的伸缩比例（可选）
 
@@ -81,3 +84,29 @@ class RibbonTab(QWidget):
         index = self.layout().indexOf(ribbon_pane)
         if index >= 0:
             self.layout().setStretch(index, stretch)
+
+
+if __name__ == "__main__":
+    """
+    简单测试 RibbonTab
+    """
+    import sys
+    from PyQt5.QtWidgets import QApplication
+
+    app = QApplication(sys.argv)
+
+    from src.Ribbon.RibbonPane import RibbonPane
+
+    main_window = QWidget()
+    main_window.setWindowTitle("RibbonTab 测试")
+    main_window.resize(600, 200)
+
+    ribbon_tab = RibbonTab(main_window, "测试Tab")
+    pane1 = ribbon_tab.add_ribbon_pane("功能组1")
+    pane2 = ribbon_tab.add_ribbon_pane("功能组2")
+
+    ribbon_tab.add_spacer()
+
+    main_window.setLayout(ribbon_tab.layout())
+    main_window.show()
+    sys.exit(app.exec_())

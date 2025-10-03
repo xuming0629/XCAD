@@ -39,7 +39,7 @@ class RibbonPane(QWidget):
             parent : 父级 QWidget（通常是 RibbonTab）
             name   : 分组标题
         """
-        super(RibbonPane, self).__init__(parent)
+        super().__init__(parent)
 
         # 应用样式表（来自外部 StyleSheets）
         self.setStyleSheet(get_stylesheet("ribbonPane"))
@@ -129,8 +129,8 @@ class RibbonSeparator(QWidget):
         super().__init__(parent)
 
         fixed_height = gui_scale() * 80
-        self.setMinimumHeight(fixed_height)
-        self.setMaximumHeight(fixed_height)
+        self.setMinimumHeight(int(fixed_height))
+        self.setMaximumHeight(int(fixed_height))
         self.setMinimumWidth(1)
         self.setMaximumWidth(1)
 

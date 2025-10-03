@@ -1,93 +1,114 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# ****************************************************
-# @FileName      :   ViewLeaderWidget.py
-# @Time          :   2025/10/03 07:31:19
-# @Author        :   XuMing
-# @Version       :   1.0
-# @Email         :   920972751@qq.com
-# @Description   :   None
-# @Copyright     :   XuMing. All Rights Reserved.
-# ****************************************************
+# -*- encoding: utf-8 -*-
+'''
+@File    :   RibbonButton.py
+@Time    :   2025/09/22 23:03:14
+@Author  :   XuMing
+@Version :   v1.1
+@Contact :   920972751@qq.com
+@License :   Copyright (c) 2021-2025 XuMing. All Rights Reserved.
+@Desc    :   Ribbon 自定义按钮，支持 QSize、列表/元组作为 icon_size
+'''
+
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import QSize
+from PyQt5.QtWidgets import QToolButton
+from src.Ribbon import gui_scale
+from src.Ribbon.StyleSheets import get_stylesheet
 
 
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import Qt, QSize
-from Win64.Ribbon import gui_scale
-from Win64.Ribbon.StyleSheets import get_stylesheet
-from Win64.Ribbon.RibbonTab import RibbonTab
-from Win64.Ribbon.ViewLeaderButton import ViewLeaderButton
+class RibbonButton(QToolButton):
+    def __init__(self, owner, action, is_large):
+        super().__init__(owner)
+
+        sc = gui_scale()
+
+        self._actionOwner = action
+        self.update_button_status_from_action()
+
+        self.clicked.connect(self._actionOwner.trigger)
+        self._actionOwner.changed.connect(self.update_button_status_from_action)
+
+        if is_large:
+            self.setMaximumWidth(int(80 * sc))
+            self.setMinimumWidth(int(50 * sc))
+            self.setMinimumHeight(int(75 * sc))
+            self.setMaximumHeight(int(80 * sc))
+            self.setIconSize(QSize(int(32*sc), int(32*sc)))
+            self.setStyleSheet(get_stylesheet("ribbonButton"))
+            self.setToolButtonStyle(3)  # 文本在图标下方
+            self.setIconSize(QSize(int(32 * sc), int(32 * sc)))
+        else:
+            self.setToolButtonStyle(2)  # 文本在图标旁边
+            self.setMaximumWidth(int(120 * sc))
+            self.setIconSize(QSize(int(16*sc), int(16*sc)))
+            self.setStyleSheet(get_stylesheet("ribbonSmallButton"))
+
+    def update_button_status_from_action(self):
+        self.setText(self._actionOwner.text())
+        self.setStatusTip(self._actionOwner.statusTip())
+        self.setToolTip(self._actionOwner.toolTip())
+        self.setIcon(self._actionOwner.icon())
+        self.setEnabled(self._actionOwner.isEnabled())
+        self.setCheckable(self._actionOwner.isCheckable())
+        self.setChecked(self._actionOwner.isChecked())
 
 
-__author__ = 'loujiand'
+class ViewLeaderButton(QToolButton):
+    def __init__(self, parent=None, object_name=None, icon_name=None,
+                 icon_size=None, action_tip=None, action=None):
+        super(ViewLeaderButton, self).__init__(parent)
+
+        sc = gui_scale()
+        size = int(38 * sc)
+        self.setFixedSize(size, size)
+        self.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        self.setStyleSheet("background-color: transparent;")
+
+        self._create_icon_button(object_name, icon_name, icon_size, action_tip, action)
+
+    def _create_icon_button(self, object_name, icon_name, icon_size, action_tip, action):
+        self.setObjectName(object_name)
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(f"icons/{icon_name}.png"),
+                       QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setIcon(icon)
+
+        if icon_size:
+            if isinstance(icon_size, QSize):
+                w, h = icon_size.width(), icon_size.height()
+            elif isinstance(icon_size, (tuple, list)) and len(icon_size) == 2:
+                w, h = int(icon_size[0]), int(icon_size[1])
+            else:
+                w, h = 32, 32
+            self.setIconSize(QtCore.QSize(w, h))
+
+        if action_tip:
+            self.setToolTip(action_tip)
+
+        if action:
+            self.add_action(action)
+
+    def add_action(self, action):
+        self.clicked.connect(action)
 
 
-class ViewLeaderWidget(QtWidgets.QWidget):
-    def __init__(self, parent=None):
-        super(ViewLeaderWidget, self).__init__(parent)
+# -------------------------- __main__ 测试 --------------------------
+if __name__ == "__main__":
+    import sys
+    from PyQt5.QtWidgets import QApplication, QMainWindow
 
-        # 主容器
-        self._ViewLeader_Widget = QtWidgets.QWidget(parent)
-        self._ViewLeader_Widget.setMaximumHeight(int(45 * gui_scale()))
-        self._ViewLeader_Widget.setMinimumHeight(int(45 * gui_scale()))
+    def on_click():
+        print("按钮点击了")
 
-        # 水平布局
-        self.HBOX = QtWidgets.QHBoxLayout(self._ViewLeader_Widget)
-        HBOX_Logo = QtWidgets.QHBoxLayout()
-        HBOX_Left = QtWidgets.QHBoxLayout()
-        HBOX_Center = QtWidgets.QHBoxLayout()
-        HBOX_Right = QtWidgets.QHBoxLayout()
+    app = QApplication(sys.argv)
+    main_window = QMainWindow()
+    main_window.resize(400, 300)
+    main_window.setWindowTitle("ViewLeaderButton 测试")
 
-        self.HBOX.addLayout(HBOX_Logo)
-        self.HBOX.addLayout(HBOX_Left)
-        self.HBOX.addLayout(HBOX_Center, 280)
-        self.HBOX.addLayout(HBOX_Right, 0)
+    button = ViewLeaderButton(main_window, "testButton", "view_top", QSize(32, 32), "点击测试", on_click)
+    main_window.setCentralWidget(button)
 
-        # 左侧按钮区域
-        self.folder_pushButton = ViewLeaderButton(parent, "folder_pushButton", "view_top", QSize(32, 32), "打开")
-        HBOX_Left.addWidget(self.folder_pushButton)
-
-        self.undo_pushButton = ViewLeaderButton(parent, "undo_pushButton", "view_tfr_tri", QSize(32, 32), "撤销")
-        HBOX_Left.addWidget(self.undo_pushButton)
-
-        self.redo_pushButton = ViewLeaderButton(parent, "redo_pushButton", "view_tfr_iso", QSize(32, 32), "重做")
-        HBOX_Left.addWidget(self.redo_pushButton)
-
-        self.save_pushButton = ViewLeaderButton(parent, "save_pushButton", "view_right", QSize(32, 32), "保存")
-        HBOX_Left.addWidget(self.save_pushButton)
-
-        self.copy_pushButton = ViewLeaderButton(parent, "copy_pushButton", "view_left", QSize(32, 32), "复制")
-        HBOX_Left.addWidget(self.copy_pushButton)
-
-        self.paste_pushButton = ViewLeaderButton(parent, "paste_pushButton", "view_front", QSize(32, 32), "粘贴")
-        HBOX_Left.addWidget(self.paste_pushButton)
-
-        self.about_pushButton = ViewLeaderButton(parent, "about_pushButton", "view_bottom", QSize(32, 32), "关于")
-        HBOX_Left.addWidget(self.about_pushButton)
-
-        # 字体
-        font = QtGui.QFont()
-        font.setFamily("方正粗黑宋简体")
-        font.setPointSize(15)
-
-        # 中间标题（可选）
-        # self.label = QtWidgets.QLabel("BrepCAD", self)
-        # self.label.setFont(font)
-        # HBOX_Center.addWidget(self.label, 0, Qt.AlignCenter)
-
-        # 内部 tab 容器（供 add_ribbon_tab 使用）
-        self._ribbon_widget = QtWidgets.QTabWidget(self)
-
-
-    def add_ribbon_tab(self, name):
-        """添加一个 RibbonTab"""
-        ribbon_tab = RibbonTab(self, name)
-        ribbon_tab.setObjectName("tab_" + name)
-        self._ribbon_widget.addTab(ribbon_tab, name)
-        return ribbon_tab
-
-    def set_active(self, name):
-        """激活某个 tab"""
-        tab = self.findChild(RibbonTab, "tab_" + name)
-        if tab:
-            self._ribbon_widget.setCurrentWidget(tab)
+    main_window.show()
+    sys.exit(app.exec_())
